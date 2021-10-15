@@ -1,9 +1,2 @@
-puts("array de numeros")
-array = [5,6,7]
-puts("array", array)
-
-
-puts("array de palabras")
-
-arra_pa = ["jSuancho","sanmiguel","sad","sao"]
-p("arra_pa",arra_pa)
+arra_pa = ["variables","condicionales","funciones","listas","loop","bolleanos","tipos primitivos"]
+p("#{arra_pap.s}")

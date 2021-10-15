@@ -1,3 +1,4 @@
+
 let num = 0;
 let count = 0;
 let suma = 1;
@@ -8,3 +9,4 @@ while ( num < 100 - suma){
     lista.push(num);
 }
 console.log(lista);
+
