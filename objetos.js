@@ -60,8 +60,14 @@ let usuarios = [ {
         },
         hijos: ["esteban"]
     }
-    ]
-console.log(usuarios);
+    ];
+
+usuarios.forEach(function (usuario){
+ console.log(usuario.nombre);
+})
+
+//
+// console.log(usuarios);
 
 // let lista = [4,425,63,445,34,53,45,3,4,3];
 // let result = lista.map(function(value){
