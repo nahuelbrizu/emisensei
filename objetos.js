@@ -62,7 +62,6 @@ let usuarios = [ {
     }
     ];
 
-let contendor = [];
 // let mayorQ40 = usuarios.forEach(function (usuario){
 //     let numeros = usuario.nombre + " :" + usuario.edad;
 //     contendor.push(numb));
@@ -72,24 +71,45 @@ let contendor = [];
 let mayorQ400 = usuarios.filter(function (usuario) {
  return usuario.edad > 40;
 });
-console.log(mayorQ400)
 
-let rForEach = usuarios.forEach(function (usuario){
+let callback = function (usuario){
     let edadUsuario = usuario.nombre + " : " + usuario.edad;
     console.log(edadUsuario);
     return edadUsuario;
-});
-console.log(rForEach);
+};
+let sum = usuarios.reduce(function (acc, usuario){
+    console.log(acc);
+    console.log(usuario.edad);
+},57);
 
+
+
+function callback2(usuario) {
+    let edadUsuario = usuario.nombre + " : " + usuario.edad;
+    console.log(edadUsuario);
+    return edadUsuario;
+}
+
+let callback3 = (usuario) => {
+    let edadUsuario = usuario.nombre + " : " + usuario.edad;
+    console.log(edadUsuario);
+    return edadUsuario;
+}
+
+let callback4 = (usuario) => usuario.nombre + " : " + usuario.edad;
+
+
+
+    console.log(mayorQ400)
+let rForEach = usuarios.forEach(callback2);
+
+console.log(rForEach);
 // console.log(resultadoForEach);
+
 let resultMap = usuarios.map(function (usuario){
     console.log(usuario.nombre + " :" + usuario.edad);
 })
-let resultMap2 = usuarios.map(function (usuario){
-    let edadUsuario = usuario.nombre + " : " + usuario.edad;
-    console.log(edadUsuario);
-    return edadUsuario;
-});
+let resultMap2 = usuarios.map(callback);
 console.log(resultMap);
 console.log(resultMap2);
 
@@ -105,8 +125,8 @@ console.log(jsonParse);
 let jsonParse2 = JSON.parse(jsonPersonalizado);
 console.log(jsonParse2);
 
-
-
+//
+// reduce suma de edades
 
 
 
