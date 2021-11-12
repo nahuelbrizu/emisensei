@@ -3,9 +3,9 @@ import java.util.List;
 
 public class Prueba {
     public static void main(String[] args) {
-        Usuario emi = new Admin("Emiliano", 38, "Argentina");
-        Usuario pt = new UsuarioPT( "Nahuelito", 29, "Argentina" );
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+        Usuario2 emi = new Admin("Emiliano", 38, "Argentina");
+        Usuario2 pt = new UsuarioPT( "Nahuelito", 29, "Argentina" );
+        List<Usuario2> usuarios = new ArrayList<Usuario2>();
         usuarios.add(emi);
         usuarios.add(pt);
         System.out.println(usuarios.get(0).getNombre());
@@ -23,12 +23,12 @@ public class Prueba {
     }
 }
 
-class Usuario {
+class Usuario2 {
     private String nombre;
     private int edad;
     private String nacionalidad;
 
-    public Usuario(String nombre, int edad, String nacionalidad){
+    public Usuario2(String nombre, int edad, String nacionalidad){
         this.nombre = nombre;
         this.edad = edad;
         this.nacionalidad = nacionalidad;
@@ -43,14 +43,14 @@ class Usuario {
     }
 }
 
-class Admin extends Usuario {
+class Admin extends Usuario2 {
 
     public Admin(String nombre, int edad, String nacionalidad) {
         super(nombre + " Admin", edad, nacionalidad);
     }
 }
 
-class UsuarioPT extends Usuario {
+class UsuarioPT extends Usuario2 {
 
     public UsuarioPT(String nombre, int edad, String nacionalidad) {
         super(nombre + " Pete", edad, nacionalidad);

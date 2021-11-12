@@ -120,7 +120,7 @@ let sumamenores2 = usuarios.filter(function (usuario) {
     return suma;
 },0);console.log(sumamenores2);
 
-let sumaMenores = usuarios.filter( (usuario) => usuario.edad > 40 ).reduce((acc, usuario) => acc + usuario.edad, 0);
+let sumaMenores = usuarios.filter( (usuario) => usuario.edad > 40 ).reduce((acc , usuario) => acc + usuario.edad, 0);
 console.log('suma menores ', sumaMenores);
 
 console.log('suma Mayores', sum);
