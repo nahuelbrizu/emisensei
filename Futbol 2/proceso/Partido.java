@@ -1,6 +1,8 @@
 package proceso;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Partido {
 	private Equipo local;
@@ -11,8 +13,8 @@ public class Partido {
 	private List<Jugador> marcadores = new ArrayList();
 	
 	/*
-	 * 	Constructor: Juega un partido entre los dos equipos que recibe. Resuelve quién ganó o si hubo
-	 * 	empate. Cambia la localía de los equipos que juegan.
+	 * 	Constructor: Juega un partido entre los dos equipos que recibe. Resuelve quiï¿½n ganï¿½ o si hubo
+	 * 	empate. Cambia la localï¿½a de los equipos que juegan.
 	 * 	Recibe: dos objetos Equipo: el primero local, el segundo visitante.
 	 * 	Devuelve: un objeto partido con los resultados.
 	 */
@@ -45,15 +47,15 @@ public class Partido {
 		setVisitante(visitante);
 	}
 	/*
-	 * 	Determina qué jugadores anotaron los goles de un equipo.
-	 * 	Por cada gol marcado genera un número al azar del 0 al 100. A partir de ese número
-	 * 	determina si el gol fue marcado por el arquero (índice 0 del objeto List jugadores
-	 * 	del equipo), un defensor (índices del 1 al 4), un volante (índices del 5 al 7) o un
-	 * 	delantero (índices del 8 al 10) de acuerdo a probabilidades fijas.
-	 * 	Luego genera un número al azar que determina qué jugador lo marcó. Finalmente agrega
+	 * 	Determina quï¿½ jugadores anotaron los goles de un equipo.
+	 * 	Por cada gol marcado genera un nï¿½mero al azar del 0 al 100. A partir de ese nï¿½mero
+	 * 	determina si el gol fue marcado por el arquero (ï¿½ndice 0 del objeto List jugadores
+	 * 	del equipo), un defensor (ï¿½ndices del 1 al 4), un volante (ï¿½ndices del 5 al 7) o un
+	 * 	delantero (ï¿½ndices del 8 al 10) de acuerdo a probabilidades fijas.
+	 * 	Luego genera un nï¿½mero al azar que determina quï¿½ jugador lo marcï¿½. Finalmente agrega
 	 * 	ese jugador a la lista de jugadores que marcaron goles en este partido.
 	 * 	Recibe: la cantidad de goles marcados por el equipo en enteros, el objeto
-	 * 	Equipo que marcó los goles.
+	 * 	Equipo que marcï¿½ los goles.
 	 */
 	@SuppressWarnings("unchecked")
 	public void calcularMarcadores(int goles, Equipo equipo){
@@ -97,7 +99,7 @@ public class Partido {
 		return golesLocal;
 	}
 	/*
-	 * 	Determina la cantidad de goles que marcó el equipo local. Recibe un entero
+	 * 	Determina la cantidad de goles que marcï¿½ el equipo local. Recibe un entero
 	 * 	del 0 al 100 y setea los goles de acuerdo a probabilidades fijas.
 	 * 	Recibe: entero del 0 al 100.
 	 */
@@ -120,9 +122,9 @@ public class Partido {
 		return golesVisitante;
 	}
 	/*
-	 * 	Determina la cantidad de goles que marcó el equipo visitante. Recibe un entero
+	 * 	Determina la cantidad de goles que marcï¿½ el equipo visitante. Recibe un entero
 	 * 	del 0 al 100 y setea los goles de acuerdo a probabilidades fijas. El equipo
-	 * 	visitante tiene desventaja probabilística.
+	 * 	visitante tiene desventaja probabilï¿½stica.
 	 * 	Recibe: entero del 0 al 100.
 	 */
 	public void setGolesVisitante(int goles) {

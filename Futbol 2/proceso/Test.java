@@ -1,8 +1,9 @@
 package proceso;
 
 import data.Carga;
-import java.io.*;
-import java.util.*;
+
+import java.io.File;
+import java.util.List;
 public class Test {
 	/**
 	 * @param args

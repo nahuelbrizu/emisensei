@@ -1,5 +1,6 @@
 package proceso;
-import java.util.*;
+
+import java.util.List;
 
 public class Equipo {
 	private List<Jugador> jugadores;
