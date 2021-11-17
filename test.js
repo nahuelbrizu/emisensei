@@ -6,7 +6,7 @@ let booleano_v = true;
 let booleano_f = false;
 let nulo = null;
 let indefinido = undefined;
-//'1', '4'., '5', '6', '7', '8',
+//'1', '2' '4'., '5', '6', '7', '8',
 if (str){
     console.log('1');
 }
