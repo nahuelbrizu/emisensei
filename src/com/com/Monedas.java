@@ -41,6 +41,25 @@ public class Monedas {
         JSONArray json = (JSONArray) parser.parse(jsonStr);
         List lista = new ArrayList();
         int itemsValidos = 0;
+        int mayorLong = 0;
+        int mayonLComp = 0;
+        for (int i = 0; i< json.size(); i++){
+            JSONObject obj = (JSONObject) json.get(i);
+            JSONObject casa = (JSONObject) obj.get("casa");
+            String nombre = (String) casa.get("nombre");
+            String compraStr = (String) casa.get("compra");
+            if ((compraStr).equals("No Cotiza")) {
+                continue;
+            }
+            if(nombre.length() > mayorLong){
+                mayorLong = nombre.length();
+            }
+            if(compraStr.length() > mayonLComp){
+                mayonLComp = compraStr.length();
+            }
+        }
+
+
         for (int i = 0; i < json.size(); i++) {
             JSONObject obj = (JSONObject) json.get(i);
             JSONObject casa = (JSONObject) obj.get("casa");
@@ -50,11 +69,21 @@ public class Monedas {
             String compraStr = (String) casa.get("compra");
             String ventaStr = (String) casa.get("venta");
 
+            int diff = mayorLong - nombre.length();
+            String result = new String(new char[diff]).replace("\0", " ");
+            String nombreConEspacios = nombre + result;
+
+            int diffCompra = mayonLComp - compraStr.length();
+            String resulta2 = new String(new char[diffCompra]).replace("\0", " ");
+            String compraConEspacios = compraStr + resulta2;
+
 
             if ((compraStr).equals("No Cotiza")) {
                 continue;
             }
             itemsValidos++;
+
+
 
             Float venta = Float.parseFloat(ventaStr.replace(".", "").replace(",", "."));
             Float compra = Float.parseFloat((compraStr).replace(".", "").replace(",", "."));
@@ -63,7 +92,7 @@ public class Monedas {
             lista1.add(compra);
             lista1.add(venta);
             lista.add(lista1);
-            String itemList = itemsValidos + " - " + nombre + "|" + " Compra : " + compraStr + "|" + " Venta : " + ventaStr;
+            String itemList = itemsValidos + " - " + nombreConEspacios + " | " + " Compra : " + compraConEspacios + " | " + " Venta : " + ventaStr;
             System.out.println(itemList);
         }
         System.out.println(" ");
