@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>Monedas.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Monedas.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.com</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">org.json.simple.JSONArray</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.json.simple.JSONObject</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.json.simple.parser.JSONParser</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">org.json.simple.parser.ParseException</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.io.BufferedReader</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.IOException</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.io.InputStreamReader</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.net.HttpURLConnection</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.net.URL</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.List</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Scanner</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Monedas {</span>
+    <span class="s0">private static </span><span class="s1">String obtenerJson(String urlStr)</span><span class="s0">throws </span><span class="s1">IOException</span>
+    <span class="s1">{</span>
+        <span class="s1">URL url = </span><span class="s0">new </span><span class="s1">URL(urlStr)</span><span class="s0">;</span>
+        <span class="s1">HttpURLConnection conn = (HttpURLConnection) url.openConnection()</span><span class="s0">;</span>
+        <span class="s1">conn.setRequestMethod(</span><span class="s2">&quot;GET&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">conn.setRequestProperty(</span><span class="s2">&quot;Accept&quot;</span><span class="s0">, </span><span class="s2">&quot;application/json&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">InputStreamReader in = </span><span class="s0">new </span><span class="s1">InputStreamReader(conn.getInputStream())</span><span class="s0">;</span>
+        <span class="s1">BufferedReader br = </span><span class="s0">new </span><span class="s1">BufferedReader(in)</span><span class="s0">;</span>
+        <span class="s1">String jsonStr = </span><span class="s2">&quot;&quot;</span><span class="s0">;</span>
+        <span class="s1">String output</span><span class="s0">;</span>
+
+        <span class="s0">if </span><span class="s1">(conn.getResponseCode() != </span><span class="s3">200</span><span class="s1">) {</span>
+            <span class="s0">throw new </span><span class="s1">RuntimeException(</span><span class="s2">&quot;Failed : HTTP Error code : &quot;</span>
+                    <span class="s1">+ conn.getResponseCode())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">while </span><span class="s1">((output = br.readLine()) != </span><span class="s0">null</span><span class="s1">) {</span>
+            <span class="s1">jsonStr = jsonStr + output</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">conn.disconnect()</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">jsonStr</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">private static </span><span class="s1">List generarLista(String jsonStr )</span><span class="s0">throws </span><span class="s1">IOException</span><span class="s0">, </span><span class="s1">ParseException {</span>
+        <span class="s1">JSONParser parser = </span><span class="s0">new </span><span class="s1">JSONParser()</span><span class="s0">;</span>
+        <span class="s1">JSONArray json = (JSONArray) parser.parse(jsonStr)</span><span class="s0">;</span>
+        <span class="s1">List lista = </span><span class="s0">new </span><span class="s1">ArrayList()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">itemsValidos = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">mayorLong = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">mayonLComp = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; json.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">JSONObject obj = (JSONObject) json.get(i)</span><span class="s0">;</span>
+            <span class="s1">JSONObject casa = (JSONObject) obj.get(</span><span class="s2">&quot;casa&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String nombre = (String) casa.get(</span><span class="s2">&quot;nombre&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String compraStr = (String) casa.get(</span><span class="s2">&quot;compra&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">((compraStr).equals(</span><span class="s2">&quot;No Cotiza&quot;</span><span class="s1">)) {</span>
+                <span class="s0">continue;</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(nombre.length() &gt; mayorLong) {</span>
+                <span class="s1">mayorLong = nombre.length()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(compraStr.length() &gt; mayonLComp) {</span>
+                <span class="s1">mayonLComp = compraStr.length()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; json.size()</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">JSONObject obj = (JSONObject) json.get(i)</span><span class="s0">;</span>
+            <span class="s1">JSONObject casa = (JSONObject) obj.get(</span><span class="s2">&quot;casa&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">List lista1 = </span><span class="s0">new </span><span class="s1">ArrayList()</span><span class="s0">;</span>
+
+            <span class="s1">String nombre = (String) casa.get(</span><span class="s2">&quot;nombre&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String compraStr = (String) casa.get(</span><span class="s2">&quot;compra&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String ventaStr = (String) casa.get(</span><span class="s2">&quot;venta&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s0">int </span><span class="s1">diff = mayorLong - nombre.length()</span><span class="s0">;</span>
+            <span class="s1">String result = </span><span class="s0">new </span><span class="s1">String(</span><span class="s0">new char</span><span class="s1">[diff]).replace(</span><span class="s2">&quot;</span><span class="s0">\0</span><span class="s2">&quot;</span><span class="s0">, </span><span class="s2">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String nombreConEspacios = nombre + result</span><span class="s0">;</span>
+
+            <span class="s0">int </span><span class="s1">diffCompra = mayonLComp - compraStr.length()</span><span class="s0">;</span>
+            <span class="s1">String resulta2 = </span><span class="s0">new </span><span class="s1">String(</span><span class="s0">new char</span><span class="s1">[diffCompra]).replace(</span><span class="s2">&quot;</span><span class="s0">\0</span><span class="s2">&quot;</span><span class="s0">, </span><span class="s2">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String compraConEspacios = compraStr + resulta2</span><span class="s0">;</span>
+
+
+            <span class="s0">if </span><span class="s1">((compraStr).equals(</span><span class="s2">&quot;No Cotiza&quot;</span><span class="s1">)) {</span>
+                <span class="s0">continue;</span>
+            <span class="s1">}</span>
+            <span class="s1">itemsValidos++</span><span class="s0">;</span>
+            <span class="s1">Float venta = Float.parseFloat(ventaStr.replace(</span><span class="s2">&quot;.&quot;</span><span class="s0">, </span><span class="s2">&quot;&quot;</span><span class="s1">).replace(</span><span class="s2">&quot;,&quot;</span><span class="s0">, </span><span class="s2">&quot;.&quot;</span><span class="s1">))</span><span class="s0">;</span>
+            <span class="s1">Float compra = Float.parseFloat((compraStr).replace(</span><span class="s2">&quot;.&quot;</span><span class="s0">, </span><span class="s2">&quot;&quot;</span><span class="s1">).replace(</span><span class="s2">&quot;,&quot;</span><span class="s0">, </span><span class="s2">&quot;.&quot;</span><span class="s1">))</span><span class="s0">;</span>
+            <span class="s1">lista1.add(nombre)</span><span class="s0">;</span>
+            <span class="s1">lista1.add(compra)</span><span class="s0">;</span>
+            <span class="s1">lista1.add(venta)</span><span class="s0">;</span>
+            <span class="s1">lista.add(lista1)</span><span class="s0">;</span>
+            <span class="s1">System.out.println(itemsValidos + </span><span class="s2">&quot; - &quot; </span><span class="s1">+ nombreConEspacios + </span><span class="s2">&quot; | &quot; </span><span class="s1">+ </span><span class="s2">&quot; Compra : $ &quot; </span><span class="s1">+ compraConEspacios + </span><span class="s2">&quot; | &quot; </span><span class="s1">+ </span><span class="s2">&quot; Venta : $ &quot; </span><span class="s1">+ ventaStr)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">lista</span><span class="s0">;</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">main(String[] args) </span><span class="s0">throws </span><span class="s1">IOException</span><span class="s0">, </span><span class="s1">ParseException  {</span>
+        <span class="s1">String jsonStr = obtenerJson(</span><span class="s2">&quot;https://www.dolarsi.com/api/api.php?type=valoresprincipales&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">List lista = generarLista(jsonStr)</span><span class="s0">;</span>
+        <span class="s1">Scanner sc = </span><span class="s0">new </span><span class="s1">Scanner(System.in)</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">cantidadDolares</span><span class="s0">;</span>
+        <span class="s0">double </span><span class="s1">cantidadPesos</span><span class="s0">;</span>
+        <span class="s1">String compra_venta</span><span class="s0">;</span>
+
+
+        <span class="s1">System.out.println(</span><span class="s2">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">isInvalid</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">cambio = </span><span class="s3">0</span><span class="s0">;</span>
+        <span class="s0">do </span><span class="s1">{</span>
+            <span class="s1">System.out.print(</span><span class="s2">&quot; Seleccione el cambio : &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">String cambioStr = (String) sc.next()</span><span class="s0">;</span>
+            <span class="s0">try </span><span class="s1">{</span>
+                <span class="s1">cambio = </span><span class="s0">new </span><span class="s1">Integer(cambioStr)</span><span class="s0">;</span>
+                <span class="s1">isInvalid = cambio &lt; </span><span class="s3">1 </span><span class="s1">|| cambio &gt; lista.size()</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s0">catch </span><span class="s1">(NumberFormatException e) {</span>
+                <span class="s1">isInvalid = </span><span class="s0">true;</span>
+            <span class="s1">}</span>
+        <span class="s1">} </span><span class="s0">while </span><span class="s1">(isInvalid)</span><span class="s0">;</span>
+
+        <span class="s1">List seleccion = (List) lista.get(cambio - </span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">String nombresSeleccion = (String) seleccion.get(</span><span class="s3">0</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Float compraSeleccion = (Float) seleccion.get(</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Float ventaSeleccion = (Float) seleccion.get(</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s2">&quot; Ha Seleccionado &quot; </span><span class="s1">+ </span><span class="s2">&quot;|&quot; </span><span class="s1">+ nombresSeleccion +</span>
+                <span class="s2">&quot;|&quot; </span><span class="s1">+ </span><span class="s2">&quot; Valor Compra : &quot; </span><span class="s1">+ compraSeleccion + </span><span class="s2">&quot;|&quot; </span><span class="s1">+ </span><span class="s2">&quot; Valor Compra : &quot; </span><span class="s1">+ ventaSeleccion)</span><span class="s0">;</span>
+
+        <span class="s0">do</span>
+        <span class="s1">{</span><span class="s0">;</span>
+            <span class="s1">System.out.println(</span><span class="s2">&quot;Desea Comprar o Vender  &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">compra_venta = sc.next()</span><span class="s0">;</span>
+
+            <span class="s0">if </span><span class="s1">(compra_venta.equals(</span><span class="s2">&quot;comprar&quot;</span><span class="s1">)) {</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;Cuantos Pesitos queres transformar a dolarucos&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">cantidadPesos = sc.nextDouble()</span><span class="s0">;</span>
+                <span class="s0">double </span><span class="s1">dolar = cantidadPesos / compraSeleccion</span><span class="s0">;</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;Conversion &quot; </span><span class="s1">+ cantidadPesos + </span><span class="s2">&quot; pesitos &quot; </span><span class="s1">+ dolar + </span><span class="s2">&quot; Dolares&quot;</span><span class="s1">)</span><span class="s0">;</span>
+
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(compra_venta.equals(</span><span class="s2">&quot;vender&quot;</span><span class="s1">)) {</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;Cuantos Dolarucos le interesa Vender&quot;</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">cantidadDolares = sc.nextDouble()</span><span class="s0">;</span>
+                <span class="s0">double </span><span class="s1">pesos = cantidadDolares * ventaSeleccion</span><span class="s0">;</span>
+                <span class="s1">System.out.println(</span><span class="s2">&quot;Conversion &quot; </span><span class="s1">+ cantidadDolares + </span><span class="s2">&quot; Dolares &quot; </span><span class="s1">+ pesos + </span><span class="s2">&quot; Pesos&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">while</span><span class="s1">(!compra_venta.equals(</span><span class="s2">&quot;comprar&quot;</span><span class="s1">)&amp;&amp;!compra_venta.equals(</span><span class="s2">&quot;vender&quot;</span><span class="s1">))</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
