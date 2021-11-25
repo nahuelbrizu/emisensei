@@ -29,7 +29,9 @@ https.get(url, (res) => {
     res.on('end', () => {
         try {
             const parsedData = JSON.parse(rawData);
-            mostrarMenu(parsedData);
+            let listaMenu = mostrarMenu(parsedData);
+            mostrarMenu(listaMenu);
+
         } catch (e) {
             console.error(e.message);
         }
@@ -40,45 +42,72 @@ https.get(url, (res) => {
 
 function mostrarMenu(jsonArray) {
     let lista = [];
-    let  lista1 = [];
-    let itemsValidos;
-    let letraMayLong;
-    let letramenLong;
-    for (let i = 0; i < jsonArray; i++) {
+    let jsonArray2 = [...jsonArray];
+
+    jsonArray2.sort((a, b)=>{
+        if (a.casa.nombre.length < b.casa.nombre.length) {
+            return 1
+        }
+        if (a.casa.nombre.length > b.casa.nombre.length) {
+            return -1
+        } else {
+            return 0
+        }
+        });
+    let mayor = jsonArray2[0].casa.nombre.length;
+
+    jsonArray2.sort((a, b)=>{
+        if (a.casa.compra.length < b.casa.compra.length) {
+            return 1
+        }
+        if (a.casa.compra.length > b.casa.compra.length) {
+            return -1
+        } else {
+            return 0
+        }
+    });
+    let mayorCompra = jsonArray2[0].casa.compra.length;
+
+    for (let i = 0; i < jsonArray.length; i++) {
+        let lista1 = [];
         let obj = jsonArray[i];
         let casa = obj.casa;
         let nombre = casa.nombre;
-        let compra = casa.compra;
         let venta = casa.venta;
+        let compra = casa.compra;
+        let itemValido= 0;
 
-        if ((compra) === ("No Cotiza")) {
+        if (compra === ("No Cotiza")){
             continue;
         }
-        if (nombre.length() > letraMayLong) {
-            letraMayLong = nombre.length();
-        }
-        if (compra.length() > letramenLong) {
-            letraMayLong = compra.length();
-        }
-        let diff = letraMayLong - nombre.length();
-        let result = diff.replace("\0", " ");
-        let nombreConEspacios = nombre + result;
 
-        let diffCompra = letraMayLong - compra.length();
-        let resulta2 = diffCompra.replace("\0", " ");
-        let compraConEspacios = compra + resulta2;
+        let diff = mayor - nombre.length;
+        let nombreSpacio = nombre + " ".repeat(diff) ;
+        let diffCompra = mayorCompra - compra.length;
+        let compraSpacio = compra + " ".repeat(diffCompra) ;
 
 
-        if ((compraStr).equals("No Cotiza")) {
+
+
+        if (compra === "No Cotiza"){
             continue;
         }
-        itemsValidos++;
+
+        itemValido++;
+
         lista1.push(nombre);
-        lista1.push(compra);
         lista1.push(venta);
+        lista1.push(compra);
         lista.push(lista1);
-        console.log(itemsValidos + " - " + nombreConEspacios + " | " + " Compra : $ " + compraConEspacios + " | " + " Venta : $ " + ventaStr);
+        console.log(itemValido + " - " + nombreSpacio + " | " + "Compra : $ " + compraSpacio + " | " + "Venta : $ " + venta);
+
     }
-    return lista;
+   return lista;
 }
-console.log(mostrarMenu(jsonArray));
+
+function cambio(listaMenu){
+
+
+
+}
+

@@ -48,6 +48,7 @@ public class Monedas {
             JSONObject casa = (JSONObject) obj.get("casa");
             String nombre = (String) casa.get("nombre");
             String compraStr = (String) casa.get("compra");
+
             if ((compraStr).equals("No Cotiza")) {
                 continue;
             }
@@ -80,13 +81,15 @@ public class Monedas {
                 continue;
             }
             itemsValidos++;
+
             Float venta = Float.parseFloat(ventaStr.replace(".", "").replace(",", "."));
             Float compra = Float.parseFloat((compraStr).replace(".", "").replace(",", "."));
             lista1.add(nombre);
             lista1.add(compra);
             lista1.add(venta);
             lista.add(lista1);
-            System.out.println(itemsValidos + " - " + nombreConEspacios + " | " + " Compra : $ " + compraConEspacios + " | " + " Venta : $ " + ventaStr);
+            System.out.println(itemsValidos + " - " + nombreConEspacios +
+                    " | " + " Compra : $ " + compraConEspacios + " | " + " Venta : $ " + ventaStr);
         }
         return lista;
 
