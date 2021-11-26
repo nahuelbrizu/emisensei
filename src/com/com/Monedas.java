@@ -48,7 +48,6 @@ public class Monedas {
             JSONObject casa = (JSONObject) obj.get("casa");
             String nombre = (String) casa.get("nombre");
             String compraStr = (String) casa.get("compra");
-
             if ((compraStr).equals("No Cotiza")) {
                 continue;
             }
@@ -77,19 +76,17 @@ public class Monedas {
             String compraConEspacios = compraStr + resulta2;
 
 
-            if ((compraStr).equals("No Cotiza")) {
+            if ((compraStr).equals("No Cotiza") || (ventaStr).equals("No Cotiza") ) {
                 continue;
             }
             itemsValidos++;
-
             Float venta = Float.parseFloat(ventaStr.replace(".", "").replace(",", "."));
             Float compra = Float.parseFloat((compraStr).replace(".", "").replace(",", "."));
             lista1.add(nombre);
             lista1.add(compra);
             lista1.add(venta);
             lista.add(lista1);
-            System.out.println(itemsValidos + " - " + nombreConEspacios +
-                    " | " + " Compra : $ " + compraConEspacios + " | " + " Venta : $ " + ventaStr);
+            System.out.println(itemsValidos + " - " + nombreConEspacios + " | " + " Compra : $ " + compraConEspacios + " | " + " Venta : $ " + ventaStr);
         }
         return lista;
 
@@ -107,9 +104,9 @@ public class Monedas {
             } catch (NumberFormatException e) {
                 isInvalid = true;
                 System.out.println("Eso no es un cambio");
+
             }
         } while (isInvalid);
-
         return cambio1;
     }
 
@@ -121,7 +118,7 @@ public class Monedas {
         Float compraSeleccion = (Float) seleccion.get(1);
         Float ventaSeleccion = (Float) seleccion.get(2);
         System.out.println(" Ha Seleccionado " + ": " + nombresSeleccion +
-                " | " + " Valor Compra : " + compraSeleccion + " | " + " Valor Compra : " + ventaSeleccion);
+                " | " + " Valor Compra : " + compraSeleccion + " | " + " Valor Venta : " + ventaSeleccion);
 
         do
         {;
@@ -129,17 +126,17 @@ public class Monedas {
             compra_venta = sc.next();
 
             if (compra_venta.equals("comprar")) {
-                System.out.print("Cuantos Pesitos queres transformar a dolarucos : ");
+                System.out.print("Cuantos Pesitos queres transformar a dolarucos :");
                 cantidadPesos = sc.nextDouble();
                 double dolar = cantidadPesos / compraSeleccion;
-                System.out.println("Conversion " + cantidadPesos + " pesitos " + dolar + " Dolares");
+                System.out.println("Conversion " + cantidadPesos + " pesitos "  + " Dolares : " + dolar );
 
             }
             if (compra_venta.equals("vender")) {
-                System.out.print("Cuantos Dolarucos le interesa Vender : ");
+                System.out.print("Cuantos Dolarucos le interesa Vender :");
                 cantidadDolares = sc.nextDouble();
                 double pesos = cantidadDolares * ventaSeleccion;
-                System.out.println("Conversion " + cantidadDolares + " Dolares " + pesos + " Pesos");
+                System.out.println("Conversion " + cantidadDolares + " Dolares " + " Pesos : " + pesos  );
             }
         }
         while(!compra_venta.equals("comprar")&&!compra_venta.equals("vender"));

@@ -1,13 +1,25 @@
-const API_URL = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales';
-const XMLHttpRequest = require("xhr2").XMLHtt;
-const xhr =  new XMLHttpRequest();
+let cantidadDolares;
+let cantidadPesos;
+let compraVenta;
+let prompt = require('prompt-sync')();
 
-function objJson() {
-    if (this.readyState === 4 && this.status === 200){
-        const  data = JSON.parse(this.response)
-        console.log(data);
+
+console.log(" Ha Seleccionado " + ": "  +
+    " | " + " Valor Compra : "  + " | " + " Valor Compra : " com);
+
+do {
+    compraVenta = prompt("Desea comprar o vender ? ", " ");
+    if (compraVenta === "comprar"){
+        cantidadPesos = prompt("cuantos pesitos desea transformar a dolarucos : ", " ");
+        let dolar = cantidadPesos / compraSeleccion;
+        console.log("conversion " + cantidadPesos + "pesitos " + dolar + "dolares");
+    }
+    if (compraVenta === "vender"){
+        cantidadDolares = prompt(" Cuantos Dolarucos le interesa Vender : ", " ");
+        let pesos = cantidadDolares * ventaSeleccion;
+        console.log("conversion " + cantidadDolares + "dolares" + pesos + "Pesos");
     }
 }
-xhr.addEventListener("load", objJson);
-xhr.open("GET", `${API_URL}/users`);
-xhr.send();
+while (!compraVenta === "comprar" && !compraVenta === "vender");
+console.log("llega a seleccion");
+
