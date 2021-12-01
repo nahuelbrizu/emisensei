@@ -1,5 +1,4 @@
 
-import 'index.html' ;
 const url = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales';
 const https = require("https");
 let prompt = require('prompt-sync')();
@@ -75,10 +74,10 @@ function mostrarMenu(jsonArray) {
         } else {
             return 0
         }
-        });
+    });
+    let mayor = jsonArray2[0].casa.nombre.length;
     // defino una variable para guardar la longitud en nombre, obtenido del condicional anterior.
 //creo un condicional para medir la longitud de compra.
-    let mayor = jsonArray2[0].casa.nombre.length;
     jsonArray2.sort((a, b)=>{
         if (a.casa.compra.length < b.casa.compra.length) {
             return 1
@@ -89,9 +88,9 @@ function mostrarMenu(jsonArray) {
             return 0
         }
     });
+    let mayorCompra = jsonArray2[0].casa.compra.length;
     // defino una variable para guardar la longitud de compra, obtenido del codicional anterior.
 // defino una variable itemVal para guardar y darle una numeracion al menu.
-    let mayorCompra = jsonArray2[0].casa.compra.length;
     let itemValido = 0;
 
     // creo un iterador for para reccorrer la lista jsonArray para obtener el nombre y los valores de compra y venta.  qu
@@ -110,10 +109,11 @@ function mostrarMenu(jsonArray) {
         if (compra === ("No Cotiza")){
             continue;
         }
+
         // defino la variables diff y diffCompra para restar las variables de mayor(longitud) con la longitud de su nombre, para hacer donde la mayor longitud del nombre sea el parametro para medir los demas nombre.
+        // defino la variables para generar espacios en las variables usando como parametro las variables anteriores de longitud.
         let diff = mayor - nombre.length;
         let diffCompra = mayorCompra - compra.length;
-        // defino la variables para generar espacios en las variables usando como parametro las variables anteriores de longitud.
         let nombreSpacio = nombre + " ".repeat(diff) ;
         let compraSpacio = compra + " ".repeat(diffCompra);
 
