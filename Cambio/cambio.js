@@ -1,3 +1,5 @@
+
+import 'index.html' ;
 const url = 'https://www.dolarsi.com/api/api.php?type=valoresprincipales';
 const https = require("https");
 let prompt = require('prompt-sync')();
@@ -56,12 +58,14 @@ function procesarError(error){
 
 https.get(url, procesarResultado).on('error', procesarError);
 //creo una funcion  Mostrarmenu dnd recorro el json para obtener una lista ordenada numericamente, para luego poder ser interseptada por el usuario.
+
+
 function mostrarMenu(jsonArray) {
 //defino una variable con valor de lista.
-    let lista = [];
 //defino una variablale con el valor d una lista obtenida del argumento de la func Mostrarmenu.
-    let jsonArray2 = [...jsonArray];
 // creo un condicional para medir el string con mas longitud.
+    let lista = [];
+    let jsonArray2 = [...jsonArray];
     jsonArray2.sort((a, b)=>{
         if (a.casa.nombre.length < b.casa.nombre.length) {
             return 1
@@ -73,8 +77,8 @@ function mostrarMenu(jsonArray) {
         }
         });
     // defino una variable para guardar la longitud en nombre, obtenido del condicional anterior.
-    let mayor = jsonArray2[0].casa.nombre.length;
 //creo un condicional para medir la longitud de compra.
+    let mayor = jsonArray2[0].casa.nombre.length;
     jsonArray2.sort((a, b)=>{
         if (a.casa.compra.length < b.casa.compra.length) {
             return 1
@@ -86,17 +90,17 @@ function mostrarMenu(jsonArray) {
         }
     });
     // defino una variable para guardar la longitud de compra, obtenido del codicional anterior.
-    let mayorCompra = jsonArray2[0].casa.compra.length;
 // defino una variable itemVal para guardar y darle una numeracion al menu.
+    let mayorCompra = jsonArray2[0].casa.compra.length;
     let itemValido = 0;
 
     // creo un iterador for para reccorrer la lista jsonArray para obtener el nombre y los valores de compra y venta.  qu
+    //defino lista1 con el valor de un array vacio. para ingresar nombre, venta y compra. y luego importarlos a la lista gral.
+    // defino la variable obj para guardar el recorrido de la iteracion con los valores de nombre, compra y venta.
+    //defino variables con el valor de los objetos en variables.
     for (let i = 0; i < jsonArray.length; i++) {
-       //defino lista1 con el valor de un array vacio. para ingresar nombre, venta y compra. y luego importarlos a la lista gral.
         let lista1 = [];
-        // defino la variable obj para guardar el recorrido de la iteracion con los valores de nombre, compra y venta.
         let obj = jsonArray[i];
-        //defino variables con el valor de los objetos en variables.
         let casa = obj.casa;
         let nombre = casa.nombre;
         let venta = casa.venta;
@@ -125,7 +129,7 @@ function mostrarMenu(jsonArray) {
         // llamo a itemValido y le agrego uno por cada recorrido.
         itemValido++;
         // creo una impresion con las variables y string necesarios para ordenar mi menu.
-        console.log(itemValido + " - " + nombreSpacio + " | " + "Compra : $ " + compraSpacio + " | " + "Venta : $ " + venta);
+        console.log(itemValido + " - " + nombreSpacio + " | " + "Compra : $ " + parseInt(compraSpacio) + " | " + "Venta : $ " + parseInt(venta));
     }
     //fuera del iterador pero dentro de la func MostrarMenu devuelvo la lista.
 
@@ -178,7 +182,7 @@ function seleccion(tipoDeCambio){
         if (compraVenta === "comprar"){
             cantidadPesos = prompt("cuantos pesitos desea transformar a dolarucos : ", " 1000 ");
             let dolar = cantidadPesos / compraSeleccion;
-            console.log("conversion  " + " Pesitos " + "lo transformas a "+ cantidadPesos   + " Dolares : " + dolar);
+            console.log("conversion  "+ nombresSeleccion + " Pesitos " + "lo transformas a "+ cantidadPesos   + " Dolares : " + dolar);
         }
         if (compraVenta === "vender"){
             cantidadDolares = prompt(" Cuantos Dolarucos le interesa Vender : ", "1000 ");
