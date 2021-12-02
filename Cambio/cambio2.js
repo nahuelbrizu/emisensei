@@ -1,13 +1,29 @@
 //fetch = ir a busca....then = luego
-traer();
+//traer();
+let cont = document.querySelector("#contenido");
+// busca un elemento con el parametro..
+
+let div = document.createElement('div');
+// creo un elemento con
+let text = document.createTextNode('bla');
+cont.appendChild(div);
+div.appendChild(text);
+// "bla"
+//var node = document.createElement("LI");                 // Create a <li> node
+// var textnode = document.createTextNode("Water");         // Create a text node
+// node.appendChild(textnode);                              // Append the text to <li>
+// document.getElementById("myList").appendChild(node);     // Append <li> to <ul> with id="myList"
+
+
+
 
 function traer() {
     fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
         .then(data => data.json())
-        // let lista = mostrarMenu(data.json()) evitando usar la linea 4
+        // let lista = mostrarMenu(data.json()) evitando usar la linea de abajo
         .then(data => {
             let lista = gererarLista(data);
-            mostrarMenu(lista);
+             mostrarMenu(lista);
             let numElegido = elegirCambio(lista);
             let cambioElegido = seleccion(numElegido);
 
@@ -37,6 +53,8 @@ function gererarLista(dataRecib) {
 function mostrarMenu(lista) {
 
     let array = [...lista];
+
+   // agarro la variable (array) que contiene una copia de la lista para ordenarla.sort por las mayores longitudes
     array.sort((a, b) => {
         if (a[0].length < b[0].length) {
             return 1;
@@ -60,28 +78,30 @@ function mostrarMenu(lista) {
         }
     });
     let compraMasLargo = array[0][1].length;
-
-    array.forEach((elemento, itemNum) => {
-        let itemNumerico= itemNum + 1;
+// aca recorro la lista original.. para procegir con el codigo..
+    lista.forEach((elemento, itemNum) => {
+       let itemNumerico  = 1 + itemNum;
         let nombre = elemento[0];
         let compra = elemento[1];
         let venta = elemento[2];
         let differenciaDeLongitudName = nombreMasLargo - nombre.length;
         let differenciaDeLongitudCompra = compraMasLargo - compra.length;
-        let nombreConEsp = nombre + "_".repeat(differenciaDeLongitudName);
+        let nombreConEsp = nombre + " ".repeat(differenciaDeLongitudName);
         let compraConEsp = compra + " ".repeat(differenciaDeLongitudCompra);
         let ventaConEsp = venta + " ";
-        document.write(itemNumerico + "  |  " + nombreConEsp + "  |  " + compraConEsp + "  |  " + ventaConEsp + "<br>");
-        console.log(itemNumerico + "  |  " + nombreConEsp + "  |  " + compraConEsp + "  |  " + ventaConEsp);
+
+        document.write("_".padEnd(70, "_") +  "<br>");
+        console.log(itemNumerico + "  |  " + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ "  + ventaConEsp);
+        document.write(itemNumerico + "  |  "  + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ " + ventaConEsp + "<br>");
     })
 }
 
-function elegirCambio(menu) {
+ function elegirCambio(menu) {
     let isInvalid;
     let cambio = 0;
 
     do {
-        cambio = prompt(" Seleccione el numer de cambio : ");
+        cambio = prompt(" Seleccione el numero de cambio : ");
         try {
             isInvalid = cambio < 1 || cambio > menu.length || isNaN(cambio);
 
@@ -97,6 +117,7 @@ function elegirCambio(menu) {
     let nombresSeleccion = arrayCambioElegido[0];
     let compraSeleccion = arrayCambioElegido[1];
     let ventaSeleccion = arrayCambioElegido[2];
+    document.write("_".padEnd(70, "_") +  "<br>");
     console.log(" Ha Seleccionado " + ": " + nombresSeleccion +
         " | " + " Valor Compra : " + compraSeleccion + " | " + " Valor Venta : " + ventaSeleccion);
     document.write(" Ha Seleccionado " + ": " + nombresSeleccion +
@@ -107,8 +128,8 @@ function elegirCambio(menu) {
 function seleccion(cambioElegido) {
 
     let nombresSeleccion = cambioElegido[0];
-    let compraSeleccion = cambioElegido[1].replace(",", ".");
-    let ventaSeleccion = cambioElegido[2].replace(",", ".");
+    let ventaSeleccion = cambioElegido[1].replace(",", ".");
+    let compraSeleccion = cambioElegido[2].replace(",", ".");
     let compraVenta;
     let cantidadPesos;
     let cantidadDolares;
@@ -116,18 +137,31 @@ function seleccion(cambioElegido) {
     do {
         compraVenta = prompt("Desea comprar o vender ? ", "comprar");
         if (compraVenta === "comprar") {
-           cantidadPesos = prompt("cuantos pesitos desea transformar a dolarucos : ", "1000");
-            let dolar = cantidadPesos / compraSeleccion;
-            console.log("conversion  " + nombresSeleccion + " Pesitos " + "lo transformas a " + cantidadPesos + " Dolares : " + dolar);
-            document.write("conversion  " + nombresSeleccion + " Pesitos " + cantidadPesos + "lo transformas a " + " Dolares : " + dolar);
+            cantidadPesos = prompt("cuantos" + nombresSeleccion + "Desea Comprar : ", "1000");
+            let dolar = cantidadPesos * compraSeleccion;
+
+
+            console.log("Desea convertir  " + nombresSeleccion + "lo transformas a "
+                + cantidadPesos + " Dolares : " + dolar);
+            document.write("_".padEnd(70, "_") +  "<br>");
+            document.write("<br>")
+            document.write("Selecciono Comprar");
+            document.write("<br>")
+            document.write("Ha Seleccionado : " + nombresSeleccion + " - " +
+                "Ingreso  :  $" + cantidadPesos + " el cambio convertido es : " + dolar);
             document.write("<br>")
         }
         if (compraVenta === "vender") {
-            cantidadDolares = prompt(" Cuantos Dolarucos le interesa Vender : ", "1000 ");
-            let pesos = cantidadDolares * ventaSeleccion;
+            cantidadDolares = prompt(" Cuantos" +nombresSeleccion+" le interesa Vender : ", "1000");
+            let pesos = cantidadDolares / ventaSeleccion;
+            document.write("_".padEnd(70, "_") +  "<br>");
             console.log("conversion  " + " Dolares :" + "Lo transformas a " + cantidadDolares + " " + " Pesos : " + pesos);
-            document.write("conversion" + nombresSeleccion + " : " + " ingreso "+ " : "  + cantidadDolares + "se Convierte a pesos " + pesos);
-
+            document.write("<br>");
+            document.write("Selecciono vender");
+            document.write("<br>");
+            document.write("Ha Seleccionado : " +  nombresSeleccion + " - " +
+                "Ingreso  :  $" + cantidadDolares + " el cambio convertido es : " + pesos);
+            document.write("<br>")
         }
     }
     while (compraVenta !== "comprar" && compraVenta !== "vender");
