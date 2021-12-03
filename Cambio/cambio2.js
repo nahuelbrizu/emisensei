@@ -1,22 +1,13 @@
 //fetch = ir a busca....then = luego
 //traer();
-let cont = document.querySelector("#contenido");
 // busca un elemento con el parametro..
-
-let div = document.createElement('div');
 // creo un elemento con
-let text = document.createTextNode('bla');
-cont.appendChild(div);
-div.appendChild(text);
+
 // "bla"
 //var node = document.createElement("LI");                 // Create a <li> node
 // var textnode = document.createTextNode("Water");         // Create a text node
 // node.appendChild(textnode);                              // Append the text to <li>
 // document.getElementById("myList").appendChild(node);     // Append <li> to <ul> with id="myList"
-
-
-
-
 function traer() {
     fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
         .then(data => data.json())
@@ -29,6 +20,9 @@ function traer() {
 
         });
 }
+
+
+
 
 function gererarLista(dataRecib) {
     let monedas = [];
@@ -51,49 +45,68 @@ function gererarLista(dataRecib) {
 }
 
 function mostrarMenu(lista) {
-
-    let array = [...lista];
-
-   // agarro la variable (array) que contiene una copia de la lista para ordenarla.sort por las mayores longitudes
-    array.sort((a, b) => {
-        if (a[0].length < b[0].length) {
-            return 1;
-        }
-        if (a[0].length > b[0].length) {
-            return -1;
-        } else {
-            return 0;
-        }
-    });
-    let nombreMasLargo = array[0][0].length;
-
-    array.sort((a, b) => {
-        if (a[1].length < b[1].length) {
-            return 1;
-        }
-        if (a[1].length > b[1].length) {
-            return -1;
-        } else {
-            return 0;
-        }
-    });
-    let compraMasLargo = array[0][1].length;
+   //
+   //  let array = [...lista];
+   //
+   // // agarro la variable (array) que contiene una copia de la lista para ordenarla.sort por las mayores longitudes
+   //  array.sort((a, b) => {
+   //      if (a[0].length < b[0].length) {
+   //          return 1;
+   //      }
+   //      if (a[0].length > b[0].length) {
+   //          return -1;
+   //      } else {
+   //          return 0;
+   //      }
+   //  });
+   //  let nombreMasLargo = array[0][0].length;
+   //
+   //  array.sort((a, b) => {
+   //      if (a[1].length < b[1].length) {
+   //          return 1;
+   //      }
+   //      if (a[1].length > b[1].length) {
+   //          return -1;
+   //      } else {
+   //          return 0;
+   //      }
+   //  });
+   //  let compraMasLargo = array[0][1].length;
 // aca recorro la lista original.. para procegir con el codigo..
-    lista.forEach((elemento, itemNum) => {
-       let itemNumerico  = 1 + itemNum;
-        let nombre = elemento[0];
-        let compra = elemento[1];
-        let venta = elemento[2];
-        let differenciaDeLongitudName = nombreMasLargo - nombre.length;
-        let differenciaDeLongitudCompra = compraMasLargo - compra.length;
-        let nombreConEsp = nombre + " ".repeat(differenciaDeLongitudName);
-        let compraConEsp = compra + " ".repeat(differenciaDeLongitudCompra);
-        let ventaConEsp = venta + " ";
+    lista.forEach((elemento, index) => {
+        agregarItemAlContenedor(elemento)
 
-        document.write("_".padEnd(70, "_") +  "<br>");
-        console.log(itemNumerico + "  |  " + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ "  + ventaConEsp);
-        document.write(itemNumerico + "  |  "  + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ " + ventaConEsp + "<br>");
+       // let itemNumerico  = 1 + itemNum;
+       //
+       //  let differenciaDeLongitudName = nombreMasLargo - nombre.length;
+       //  let differenciaDeLongitudCompra = compraMasLargo - compra.length;
+       //  let nombreConEsp = nombre + " ".repeat(differenciaDeLongitudName);
+       //  let compraConEsp = compra + " ".repeat(differenciaDeLongitudCompra);
+       //  let ventaConEsp = venta + " ";
+        // console.log(itemNumerico + "  |  " + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ "  + ventaConEsp);
     })
+}
+function agregarItemAlContenedor(elemento){
+    let nombre = elemento[0];
+    let compra = elemento[1];
+    let venta = elemento[2];
+    let cont = document.querySelector("#contenido");
+
+    let divNombre = document.createElement('div');
+    let textNombre = document.createTextNode(nombre);
+    divNombre.appendChild(textNombre);
+    cont.appendChild(divNombre);
+
+    let divCompra = document.createElement('div');
+    let texCompra = document.createTextNode(compra);
+    divCompra.appendChild(texCompra);
+    cont.appendChild(divCompra)
+
+    let divVenta = document.createElement('div');
+    let textVenta = document.createTextNode(venta);
+    divVenta.appendChild(textVenta);
+    cont.appendChild(divVenta);
+
 }
 
  function elegirCambio(menu) {
@@ -117,7 +130,6 @@ function mostrarMenu(lista) {
     let nombresSeleccion = arrayCambioElegido[0];
     let compraSeleccion = arrayCambioElegido[1];
     let ventaSeleccion = arrayCambioElegido[2];
-    document.write("_".padEnd(70, "_") +  "<br>");
     console.log(" Ha Seleccionado " + ": " + nombresSeleccion +
         " | " + " Valor Compra : " + compraSeleccion + " | " + " Valor Venta : " + ventaSeleccion);
     document.write(" Ha Seleccionado " + ": " + nombresSeleccion +
@@ -167,3 +179,5 @@ function seleccion(cambioElegido) {
     while (compraVenta !== "comprar" && compraVenta !== "vender");
 
 }
+
+
