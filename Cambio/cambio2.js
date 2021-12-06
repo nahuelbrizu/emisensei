@@ -1,17 +1,26 @@
-//fetch = ir a busca....then = luego
-//traer();
-// busca un elemento con el parametro..
-// creo un elemento con
 
-// "bla"
 //var node = document.createElement("LI");                 // Create a <li> node
 // var textnode = document.createTextNode("Water");         // Create a text node
 // node.appendChild(textnode);                              // Append the text to <li>
 // document.getElementById("myList").appendChild(node);     // Append <li> to <ul> with id="myList"
+//
+
+
+// inprimir texto en html
+// <label for="nombre">Escribir tu nombre:</label>
+//obtener datos del html
+//<input type="text" id nombre>
+
+// var nombre = document.getElementById("nomgbre").value;
+//
+// // mostrar informarcion en etiqueta id
+// document.getElementById("etiqueta id").innerHTML= nombre + "zaraza "+ compra + venta;
+
+
 function traer() {
     fetch('https://www.dolarsi.com/api/api.php?type=valoresprincipales')
-        .then(data => data.json())
         // let lista = mostrarMenu(data.json()) evitando usar la linea de abajo
+        .then(data => data.json())
         .then(data => {
             let lista = gererarLista(data);
              mostrarMenu(lista);
@@ -20,10 +29,6 @@ function traer() {
 
         });
 }
-
-
-
-
 function gererarLista(dataRecib) {
     let monedas = [];
     for (let i = 0; i < dataRecib.length; i++) {
@@ -43,49 +48,13 @@ function gererarLista(dataRecib) {
     }
     return monedas;
 }
-
 function mostrarMenu(lista) {
-   //
-   //  let array = [...lista];
-   //
-   // // agarro la variable (array) que contiene una copia de la lista para ordenarla.sort por las mayores longitudes
-   //  array.sort((a, b) => {
-   //      if (a[0].length < b[0].length) {
-   //          return 1;
-   //      }
-   //      if (a[0].length > b[0].length) {
-   //          return -1;
-   //      } else {
-   //          return 0;
-   //      }
-   //  });
-   //  let nombreMasLargo = array[0][0].length;
-   //
-   //  array.sort((a, b) => {
-   //      if (a[1].length < b[1].length) {
-   //          return 1;
-   //      }
-   //      if (a[1].length > b[1].length) {
-   //          return -1;
-   //      } else {
-   //          return 0;
-   //      }
-   //  });
-   //  let compraMasLargo = array[0][1].length;
-// aca recorro la lista original.. para procegir con el codigo..
-    lista.forEach((elemento, index) => {
-        agregarItemAlContenedor(elemento)
 
-       // let itemNumerico  = 1 + itemNum;
-       //
-       //  let differenciaDeLongitudName = nombreMasLargo - nombre.length;
-       //  let differenciaDeLongitudCompra = compraMasLargo - compra.length;
-       //  let nombreConEsp = nombre + " ".repeat(differenciaDeLongitudName);
-       //  let compraConEsp = compra + " ".repeat(differenciaDeLongitudCompra);
-       //  let ventaConEsp = venta + " ";
-        // console.log(itemNumerico + "  |  " + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ "  + ventaConEsp);
+    lista.forEach((elemento, index) => {
+        agregarItemAlContenedor(elemento)// console.log(itemNumerico + "  |  " + nombreConEsp + "  |  " + " $ " + compraConEsp + "  |  " + " $ "  + ventaConEsp);
     })
 }
+
 function agregarItemAlContenedor(elemento){
     let nombre = elemento[0];
     let compra = elemento[1];
