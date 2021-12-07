@@ -52,31 +52,31 @@ function agregarItemAlContenedor(elemento){
     let textNombre = document.createTextNode(nombre);
     divNombre.appendChild(textNombre);
     cont.appendChild(divNombre);
-    divNombre.addEventListener("click",function() { seleccion(elemento , " ") });
+    divNombre.addEventListener("click",function() { seleccion(elemento) });
 
     let divCompra = document.createElement('div');
     let texCompra = document.createTextNode(compra);
     divCompra.appendChild(texCompra);
-    cont.appendChild(divCompra)
-    divCompra.addEventListener("click", function() { seleccion(elemento) });
+    // cont.appendChild(divCompra)
+    // divCompra.addEventListener("click", function() { seleccion(elemento) });
 
 
     let divVenta = document.createElement('div');
     let textVenta = document.createTextNode(venta);
     divVenta.appendChild(textVenta);
-    cont.appendChild(divVenta);
-    divVenta.addEventListener("click", function() { seleccion(elemento) });
+    // cont.appendChild(divVenta);
+    // divVenta.addEventListener("click", function() { seleccion(elemento) });
 
 
 }
 
 
 function seleccion(cambioElegido) {
-    console.log(cambioElegido);
-    let nombresSeleccion = cambioElegido[0];
+    console.log(cambioElegido + " S");
+    let nombresSeleccion = cambioElegido;
     let ventaSeleccion = cambioElegido[1].replace(",", ".");
     let compraSeleccion = cambioElegido[2].replace(",", ".");
-    console.log(nombresSeleccion);
+    console.log(nombresSeleccion + " ");
     let compraVenta;
     let cantidadPesos;
     let cantidadDolares;
