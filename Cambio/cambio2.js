@@ -101,8 +101,6 @@ function agregarItemAlContenedor(elemento){
     let ventaSeleccion = arrayCambioElegido[2];
     console.log(" Ha Seleccionado " + ": " + nombresSeleccion +
         " | " + " Valor Compra : " + compraSeleccion + " | " + " Valor Venta : " + ventaSeleccion);
-    document.write(" Ha Seleccionado " + ": " + nombresSeleccion +
-        " | " + " Valor Compra : " + compraSeleccion + " | " + " Valor Venta : " + ventaSeleccion + "<br>");
     return arrayCambioElegido;
 }
 
@@ -124,25 +122,11 @@ function seleccion(cambioElegido) {
 
             console.log("Desea convertir  " + nombresSeleccion + "lo transformas a "
                 + cantidadPesos + " Dolares : " + dolar);
-            document.write("_".padEnd(70, "_") +  "<br>");
-            document.write("<br>")
-            document.write("Selecciono Comprar");
-            document.write("<br>")
-            document.write("Ha Seleccionado : " + nombresSeleccion + " - " +
-                "Ingreso  :  $" + cantidadPesos + " el cambio convertido es : " + dolar);
-            document.write("<br>")
         }
         if (compraVenta === "vender") {
             cantidadDolares = prompt(" Cuantos" +nombresSeleccion+" le interesa Vender : ", "1000");
             let pesos = cantidadDolares / ventaSeleccion;
-            document.write("_".padEnd(70, "_") +  "<br>");
             console.log("conversion  " + " Dolares :" + "Lo transformas a " + cantidadDolares + " " + " Pesos : " + pesos);
-            document.write("<br>");
-            document.write("Selecciono vender");
-            document.write("<br>");
-            document.write("Ha Seleccionado : " +  nombresSeleccion + " - " +
-                "Ingreso  :  $" + cantidadDolares + " el cambio convertido es : " + pesos);
-            document.write("<br>")
         }
     }
     while (compraVenta !== "comprar" && compraVenta !== "vender");
