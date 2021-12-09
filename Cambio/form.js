@@ -43,44 +43,72 @@ function mostrarMenu(lista) {
 }
 
 function agregarItemAlContenedor(elemento){
-    let nombre = elemento;
+    let nombre = elemento[0];
     let compra = elemento[1];
     let venta = elemento[2];
-    let cont = document.querySelector("#contenido");
 
-    let divNombre = document.createElement('div');
+    let moneda= document.getElementById("moneda").innerHTML= "Moneda"
+    let compraIndex= document.getElementById("compra").innerHTML= "Compra"
+    let ventaIndex = document.getElementById("venta").innerHTML= "Venta"
+
+
+    let cont = document.createElement("tr");
+    let padre = document.querySelector("#tabla");
+
+
+    let divNombre = document.createElement('th');
     let textNombre = document.createTextNode(nombre);
     divNombre.appendChild(textNombre);
     cont.appendChild(divNombre);
-    divNombre.addEventListener("click",function() { seleccion(elemento) });
 
-    let divCompra = document.createElement('div');
-    let texCompra = document.createTextNode(compra);
-    divCompra.appendChild(texCompra);
-    // cont.appendChild(divCompra)
-    // divCompra.addEventListener("click", function() { seleccion(elemento) });
+    let divCompra = document.createElement('td');
+    let textCompra = document.createTextNode(compra);
+    divCompra.appendChild(textCompra);
+    cont.appendChild(divCompra)
+    divCompra.addEventListener("click", function(e) {
+        seleccion(compra, e.currentTarget)
+        e.currentTarget.classList.add("seleccionado");
+        document.querySelector('.seleccionado')
+
+    });
 
 
-    let divVenta = document.createElement('div');
+    let divVenta = document.createElement('td');
     let textVenta = document.createTextNode(venta);
     divVenta.appendChild(textVenta);
-    // cont.appendChild(divVenta);
-    // divVenta.addEventListener("click", function() { seleccion(elemento) });
+    cont.appendChild(divVenta);
+    divVenta.addEventListener("click", function(e) {
+        seleccion(venta, e.currentTarget)
+        e.currentTarget.classList.add("seleccionado");
+        document.querySelector('.seleccionado')
 
 
+    });
+    padre.appendChild(cont);
+
+}
+
+
+
+function seleccion(cambioElegido, elementoClickeado) {
+    console.log("Selecciono  " + cambioElegido + " /");
+    let todoJunto= cambioElegido;
+    let nombresSeleccion = cambioElegido[0];
+    let ventaSeleccion = cambioElegido[1];
+    let compraSeleccion = cambioElegido[2];
+    console.log("Selecciono  " + todoJunto);
+    // let selecci = document.createTextNode(nombresSeleccion);
+    // selecci.appendChild(nombresSeleccion);
+    let seleccionActual = document.querySelector('.seleccionado');
+    if (seleccionActual){
+        seleccionActual.classList.remove("seleccionado");
+    }
+    elementoClickeado.classList.add("seleccionado");
 }
 
 
-function seleccion(cambioElegido) {
-    console.log(cambioElegido + " S");
-    let nombresSeleccion = cambioElegido;
-    let ventaSeleccion = cambioElegido[1].replace(",", ".");
-    let compraSeleccion = cambioElegido[2].replace(",", ".");
-    console.log(nombresSeleccion + " ");
-    let compraVenta;
-    let cantidadPesos;
-    let cantidadDolares;
-
-
-}
+// e.currentTarget.classList.add("seleccionado")
+// e.currentTarget.classList.remove("seleccionado")
+// document.querySelector('.seleccionado')
+// document.querySelector('.seleccionado').classList.remove("seleccionado")
 

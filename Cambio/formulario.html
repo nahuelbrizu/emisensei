@@ -11,10 +11,24 @@
 </head>
 <body>
 <div class="container my-5">
-    <div class="mt-5" id="contenido">
+    <center><button class= "btn btn-danger w-200" onclick="traer()">click</button></center>
+    <span class="mt-5" id="contenido">
         <center><p class="center">Saludos Terricola</p></center>
+        <table id="tabla">
+            <thead>
+            <tr>
+                <td id="moneda"></td>
+                <td id="compra"></td>
+                <td id="venta"></td>
+            </tr>
+            </thead>
+            <tbody id="tablaBody">
+
+            </tbody>
+        </table>
+    </span>
+    <div id="mensaje" style="display:block">
     </div>
-    <center><button class= "btn btn-danger w-200" onclick="traer()">ingrese al Menu</button></center>
 
 
 
@@ -27,8 +41,7 @@
 
 
 <!--<h1> lalalalala es un formulario</h1>-->
-<!--
-<!--    <div>-->
+<!--   <div>-->
 <!--        <input type="button" value="Enviar mensaje" onclick="traer()">-->
 
 <!--    </div>-->
