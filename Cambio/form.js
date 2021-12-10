@@ -66,9 +66,7 @@ function agregarItemAlContenedor(elemento){
     divCompra.appendChild(textCompra);
     cont.appendChild(divCompra)
     divCompra.addEventListener("click", function(e) {
-        seleccion(compra, e.currentTarget)
-        e.currentTarget.classList.add("seleccionado");
-        document.querySelector('.seleccionado')
+        seleccion(elemento, e.currentTarget,true)
 
     });
 
@@ -78,9 +76,7 @@ function agregarItemAlContenedor(elemento){
     divVenta.appendChild(textVenta);
     cont.appendChild(divVenta);
     divVenta.addEventListener("click", function(e) {
-        seleccion(venta, e.currentTarget)
-        e.currentTarget.classList.add("seleccionado");
-        document.querySelector('.seleccionado')
+        seleccion(elemento, e.currentTarget, false)
 
 
     });
@@ -90,12 +86,11 @@ function agregarItemAlContenedor(elemento){
 
 
 
-function seleccion(cambioElegido, elementoClickeado) {
-    let todoJunto= cambioElegido;
+function seleccion(cambioElegido, elementoClickeado, compra) {
+
     let nombresSeleccion = cambioElegido[0];
-    let ventaSeleccion = cambioElegido[1];
-    let compraSeleccion = cambioElegido[2];
-    console.log("Selecciono  " + todoJunto);
+    let compraSeleccion = cambioElegido[1];
+    let ventasSeleccion = cambioElegido[2];
 
     let seleccionActual = document.querySelector('.seleccionado');
     if (seleccionActual){
@@ -103,10 +98,16 @@ function seleccion(cambioElegido, elementoClickeado) {
     }
     elementoClickeado.classList.add("seleccionado");
 
+        let mensaje = document.querySelector("#mensaje");
+        mensaje.removeChild(cam)
+    console.log(nombresSeleccion, compraSeleccion,ventasSeleccion)
 
-    let boton = document.createElement("tr");
-    let botonText = document.createTextNode(cambioElegido);
-    boton.appendChild(botonText);
+    // let mensaje = document.querySelector("#mensaje");
+    // mensaje.innerHTML = ""
+    // mensaje.appendChild(document.createTextNode('bla2'))
+    // "bla2"
+    // mensaje.innerHTML = ""
+
 
 
 
