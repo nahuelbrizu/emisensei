@@ -91,24 +91,29 @@ function agregarItemAlContenedor(elemento){
 
 
 function seleccion(cambioElegido, elementoClickeado) {
-    console.log("Selecciono  " + cambioElegido + " /");
     let todoJunto= cambioElegido;
     let nombresSeleccion = cambioElegido[0];
     let ventaSeleccion = cambioElegido[1];
     let compraSeleccion = cambioElegido[2];
     console.log("Selecciono  " + todoJunto);
-    // let selecci = document.createTextNode(nombresSeleccion);
-    // selecci.appendChild(nombresSeleccion);
+
     let seleccionActual = document.querySelector('.seleccionado');
     if (seleccionActual){
         seleccionActual.classList.remove("seleccionado");
     }
     elementoClickeado.classList.add("seleccionado");
+
+
+    let boton = document.createElement("tr");
+    let botonText = document.createTextNode(cambioElegido);
+    boton.appendChild(botonText);
+
+
+
 }
 
+function conversor(){
+    console.log("jeje");
+}
 
-// e.currentTarget.classList.add("seleccionado")
-// e.currentTarget.classList.remove("seleccionado")
-// document.querySelector('.seleccionado')
-// document.querySelector('.seleccionado').classList.remove("seleccionado")
 

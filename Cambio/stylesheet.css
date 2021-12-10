@@ -1,17 +1,25 @@
-#tabla {
-    counter-reset: li;
-    list-style: none;
-    *list-style: decimal;
-    text-align: left;
-    font: 15px 'trebuchet MS', 'lucida sans';
-    padding: 0;
-    margin-bottom: 4em;
-    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+thead{
+    background: wheat;
+    font-weight: 100;
+    font-size: 2em;
+    margin: 2px;
+}
+th{
+    margin: 2px;
+    font-size: 2em;
+
 }
 
-#tabla::content {
-    margin: 0 0 0 2em;
+table{
+    text-align: left;
+    background: #e8e1d5;
+    margin: 2px;
+    font-size: 1em;
+
 }
-.seleccionado {
-    border: red 1px solid;
+
+.seleccionado{
+    border: rgba(153, 51, 87, 0.75) 1px solid;
+    font-size: 2em;
+
 }
